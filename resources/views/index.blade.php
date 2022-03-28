@@ -11,7 +11,7 @@
         <div class="container text-center">
             <h4 class="display-2"> Selamat Datang di EazyRent!</h4>
             <h3 class="display-6">Cari Mobil Sesuai dengan kenyamanan anda!</h3><br>
-            <a href="#layanan">
+            <a href="{{ route('hai') }}">
                 <button type="button" class="btn btn-secondary btn-lg">Sign Up</button>
             </a>
         </div>
@@ -216,10 +216,10 @@
                     <p>Pelanggan aman saat akan transaksi</p>
                     <p>(telah menyewa di DW TRANS MALANG)</p>
                     <!-- <p>
-                                        <a href="" class="social"><i class="fab fa-twitter"></i></a>
-                                        <a href="" class="social"><i class="fab fa-facebook-f"></i></a>
-                                        <a href="" class="social"><i class="fab fa-instagram"></i></a>
-                                      </p> -->
+                                                        <a href="" class="social"><i class="fab fa-twitter"></i></a>
+                                                        <a href="" class="social"><i class="fab fa-facebook-f"></i></a>
+                                                        <a href="" class="social"><i class="fab fa-instagram"></i></a>
+                                                      </p> -->
                 </div>
 
                 <div class="col-md-4 text-center tim">
@@ -228,10 +228,10 @@
                     <p>Pelanggan senang dengan pelayanan yang cepat</p>
                     <p>(telah menyewa di ZENTRANS)</p>
                     <!-- <p>
-                                        <a href="" class="social"><i class="fab fa-twitter"></i></a>
-                                        <a href="" class="social"><i class="fab fa-facebook-f"></i></a>
-                                        <a href="" class="social"><i class="fab fa-instagram"></i></a>
-                                      </p> -->
+                                                        <a href="" class="social"><i class="fab fa-twitter"></i></a>
+                                                        <a href="" class="social"><i class="fab fa-facebook-f"></i></a>
+                                                        <a href="" class="social"><i class="fab fa-instagram"></i></a>
+                                                      </p> -->
                 </div>
 
                 <div class="col-md-4 text-center tim">
@@ -240,10 +240,10 @@
                     <p>Pelanggan tidak khawatir saat membutuhkan sewa mobil saat darurat</p>
                     <p>(telah menyewa di SMART TRANS MALANG)</p>
                     <!-- <p>
-                                        <a href="" class="social"><i class="fab fa-twitter"></i></a>
-                                        <a href="" class="social"><i class="fab fa-facebook-f"></i></a>
-                                        <a href="" class="social"><i class="fab fa-instagram"></i></a>
-                                      </p> -->
+                                                        <a href="" class="social"><i class="fab fa-twitter"></i></a>
+                                                        <a href="" class="social"><i class="fab fa-facebook-f"></i></a>
+                                                        <a href="" class="social"><i class="fab fa-instagram"></i></a>
+                                                      </p> -->
                 </div>
             </div>
         </div>
