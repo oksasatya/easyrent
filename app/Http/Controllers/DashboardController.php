@@ -10,11 +10,20 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 class DashboardController extends Controller
 {
+<<<<<<< HEAD
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+=======
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+>>>>>>> b2264fc3b8dc11a0a5b55922be9d37987dabac92
     public function index()
     {
         $rent = Rent::latest()->paginate(10);
