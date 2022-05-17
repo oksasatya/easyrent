@@ -16,13 +16,17 @@ class RentFactory extends Factory
      */
     public function definition()
     {
+        // faker region indonesia
+        $faker = \Faker\Factory::create('id_ID');
+        $destinationPath = 'public/image/rent';
+        $profilImage = date('YmdHis') . "." . $faker->image($destinationPath, 640, 480, null, false);
+
         return [
-            // faker region indonesia
-            $faker = Factory::create('id_ID'),
+            //   'name', 'deskripsi', 'image', 'price'
             'name' => $faker->name,
-            'deskripsi' => $faker->text(100),
-            'image' => basename($this->faker->image(storage_path('app/public'))),
-            'price' => $faker->number(1000, 10000),
+            'deskripsi' => $faker->text,
+            'image' => $profilImage,
+            'price' => $faker->numberBetween(100000, 1000000),
         ];
     }
 }

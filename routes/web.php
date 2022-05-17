@@ -28,12 +28,9 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/', function () {
 //     return view('index');
 // });
-<<<<<<< HEAD
 
 Route::get('/', [HomeController::class, 'index']);
 
-=======
->>>>>>> b2264fc3b8dc11a0a5b55922be9d37987dabac92
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -51,7 +48,6 @@ Route::post('/register', [authController::class, 'register'])->name('send.regist
 Route::post('/logout', [authController::class, 'logout'])->name('logout');
 
 
-<<<<<<< HEAD
 
 // prefix dashboard
 Route::middleware('auth', 'verified')->group(function () {
@@ -66,8 +62,3 @@ Route::resource('form', UserController::class);
 /*Route::get('/readmore', function () {
     return view('readmore');
 });*/
-=======
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-});
->>>>>>> b2264fc3b8dc11a0a5b55922be9d37987dabac92
