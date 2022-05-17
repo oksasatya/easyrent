@@ -27,7 +27,7 @@ class authController extends Controller
             $request->session()->regenerate();
 
 
-            return redirect()->intended('dashboard');
+            return redirect()->route('dashboard.index');
         }
 
         return back()->withErrors([

@@ -21,7 +21,7 @@
     </div>
 
     <!-- portofolio -->
-    <div class="container-fluid pt-5 pb-5 bg-light">
+    {{-- <div class="container-fluid pt-5 pb-5 bg-light">
         <div class="container text-center">
             <h2 class="display-5" id="portofolio"><b>Pilih Mitra Penyewaan Mobil</b></h2>
             <p>Anda bisa memilih mitra yang akan anda pilih untuk penyewaan mobil bebas sesuai keinginan dan kenyamanan
@@ -163,7 +163,22 @@
 
     </div>
     </div>
+    </div> --}}
+<div class="row">
+    @foreach($rent as $r)
+    <div class="col-md-4">
+        <div class="card crop-img">
+            <img src="{{ asset('image/rent/'.$r->image)}}" alt="">
+            <div class="card-body">
+                <h5>{{ $r->name }}</h5>
+                <p>{{ $r->deskripsi }}</p>
+                <p>{{ $r->price }}</p>
+                <a type="button" class="btn btn-primary" id="show" href="{{ url('form/')}}">Booking Sekarang</a>
+            </div>
+        </div>
+        @endforeach
     </div>
+</div>
 
     <!-- layanan -->
     <div class="container-fluid layanan pt-5 pb-5">

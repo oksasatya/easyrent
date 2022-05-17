@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Rent;
 use App\Models\Form;
+use App\Models\Rent;
 use Illuminate\Routing\Controller;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
-class DashboardController extends Controller
+class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,11 +16,10 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $rent = Rent::latest()->paginate(10);
-        $form = Form::get();
+        $form = Form::latest()->paginate(10);
+        $rent = Rent::get();
 
-        return view('beranda.index', compact('rent', 'form'))
-            ->with('i', (request('page', 1) - 1) * 5);
+        return view('form', compact('form', 'rent'));
     }
 
     /**
@@ -31,7 +29,7 @@ class DashboardController extends Controller
      */
     public function create()
     {
-        return view('beranda.create');
+        return view('form');
     }
 
     /**
@@ -40,13 +38,70 @@ class DashboardController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Rent $rent)
     {
         $request->validate([
             'name' => 'required',
-            'deskripsi' => 'required',
-            'image' => 'required|image|mimes:jpeg,jpg,png,gif,svg|max:2048',
-            'price' => 'required'
+            'tgllhr' => 'required',
+            'email' => 'required',
+            'berangkat' => 'required',
+            'datang' => 'required',
+            'image' => 'required|image|mimes:jpeg,jpg,png|max:2048'
+        ]);
+
+        $input = $request->all();
+
+        if ($image = $request->file('image')) {
+            $destinationPath = 'image/booking';
+            $profilImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move($destinationPath, $profilImage);
+            $input['image'] = $profilImage;
+        }
+
+        Form::create($input);
+
+        return view('form', compact('rent'))
+            ->with('success', 'Data anda akan kami proses dan akan kami informasikan melalui email yang sudah anda inputkan');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Form $form, Rent $rent)
+    {
+        return view('index', compact('form', 'rent'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit(Form $form)
+    {
+        return view('edit', compact('form'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Form $form)
+    {
+        $request->validate([
+            'name' => 'required',
+            'tgllhr' => 'required',
+            'email' => 'required',
+            'berangkat' => 'required',
+            'datang' => 'required',
+            'image' => 'required|image|mimes:jpeg,jpg,png|max:2048'
         ]);
 
         $input = $request->all();
@@ -58,65 +113,11 @@ class DashboardController extends Controller
             $input['image'] = $profilImage;
         }
 
-        Rent::create($input);
+        $form->update($input);
 
-        return redirect()->route('dashboard.index')
-            ->with('Success', 'Produk berhasil dibuat.');
+        return redirect()->route('index')
+            ->with('success', 'Data anda akan kami proses dan akan kami informasikan melalui email yang sudah anda inputkan');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Rent $rent)
-    {
-        return view('beranda.dashboard', compact('rent'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Rent $rent)
-    {
-        return view('beranda.edit', ['rent' => $rent]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Rent $rent)
-    {
-        $request->validate([
-            'name' => 'required',
-            'deskripsi' => 'required',
-            'image' => 'required|image|mimes:jpeg,jpg,png,gif,svg|max:2048',
-            'price' => 'required'
-        ]);
-
-        $input = $request->all();
-
-        if ($image = $request->file('image')) {
-            $destinationPath = 'image/rent';
-            $profileImage = date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
-            $input['image'] = "$profileImage";
-        }
-
-        $rent->update($input);
-
-        return view('beranda.index', compact('rent'))
-            ->with('success', 'Product edit success');
-    }
-
 
     /**
      * Remove the specified resource from storage.
@@ -124,11 +125,11 @@ class DashboardController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Rent $rent)
+    public function destroy(Form $form)
     {
-        $rent->delete();
+        $form->delete();
 
-        return redirect()->route('dashboard.index')
-            ->with('success', 'Produk berhasil dihapus');
+        return redirect()->route('index')
+            ->with('success', 'Data Berhasil Dihapus');
     }
 }

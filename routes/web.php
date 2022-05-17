@@ -1,8 +1,11 @@
 <?php
 
 use App\Http\Controllers\authController;
+use App\Http\Controllers\BuktiBookingController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\testController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -22,9 +25,12 @@ use Illuminate\Support\Facades\Route;
 
 
 // home
-Route::get('/', function () {
-    return view('index');
-});
+// Route::get('/', function () {
+//     return view('index');
+// });
+
+Route::get('/', [HomeController::class, 'index']);
+
 
 
 Route::get('/hai', [testController::class, 'index'])->name('hai');
@@ -40,6 +46,18 @@ Route::post('/register', [authController::class, 'register'])->name('send.regist
 // logout
 Route::post('/logout', [authController::class, 'logout'])->name('logout');
 
-// dashboard login
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
+// prefix dashboard
+Route::middleware('auth', 'verified')->group(function () {
+    Route::prefix('dashboard')
+        ->name('dashboard.')->group(function () {
+            Route::resource('/', DashboardController::class);
+            Route::get('/booking', [BuktiBookingController::class, 'index'])->name('booking');
+        });
+});
+Route::resource('form', UserController::class);
+
+/*Route::get('/readmore', function () {
+    return view('readmore');
+});*/
